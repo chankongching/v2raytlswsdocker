@@ -1,0 +1,22 @@
+version: '3'
+services:
+  v2raytlswsdocker:
+    image: "v2raytlswsdocker"
+    volumes:
+     - ./v2ray.config.json:/etc/v2ray/config.json
+     - ./v2ray.nginx.conf:/etc/nginx/conf.d/v2ray.conf
+     - /usr/share/zoneinfo/Asia/Shanghai:/etc/localtime
+     - /var/www/html:/var/www/html
+     - /etc/letsencrypt/archive/EXAMPLE.com:/etc/nginx/ssl_certificate
+    ports:
+      - "80:80"
+      - "443:443"
+    networks:
+      - allinone
+    container_name: v2raytlswsdocker
+    restart: always
+networks:
+  allinone:
+    driver: bridge
+    ipam:
+      driver: default

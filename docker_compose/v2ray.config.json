@@ -1,0 +1,63 @@
+{
+  "log": {
+        "access": "/dev/stdout",
+        "error": "/dev/stdout",
+        "loglevel": "warning"
+    },
+  "inbounds": [
+    {
+    "port":19231,
+      "listen": "127.0.0.1",
+      "tag": "vmess-in",
+      "protocol": "vmess",
+      "settings": {
+        "clients": [
+          {
+	  "id":"2c336de4-ffeb-40cc-9c9d-517fda4d0cdd",
+	  "alterId":2
+          }
+        ]
+      },
+      "streamSettings": {
+        "network": "ws",
+        "wsSettings": {
+	  "path":"/6a105b4b/"
+        }
+      }
+    }
+  ],
+  "outbounds": [
+    {
+      "protocol": "freedom",
+      "settings": { },
+      "tag": "direct"
+    },
+    {
+      "protocol": "blackhole",
+      "settings": { },
+      "tag": "blocked"
+    }
+  ],
+  "dns": {
+    "servers": [
+      "https+local://1.1.1.1/dns-query",
+	  "1.1.1.1",
+	  "1.0.0.1",
+	  "8.8.8.8",
+	  "8.8.4.4",
+	  "localhost"
+    ]
+  },
+  "routing": {
+    "domainStrategy": "AsIs",
+    "rules": [
+      {
+        "type": "field",
+        "inboundTag": [
+          "vmess-in"
+        ],
+        "outboundTag": "direct"
+      }
+    ]
+  }
+}
